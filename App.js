@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
   gridItem: {
     textAlign: "center",
     color: "white",
-    fontSize: "16",
+    fontSize: 16,
     padding: 5,
   },
   on: {
