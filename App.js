@@ -1,6 +1,12 @@
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, View, SafeAreaView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  TouchableOpacity,
+} from "react-native";
 import cn from "classnames";
 
 export default function App() {
@@ -65,38 +71,46 @@ export default function App() {
         <View style={styles.container}>
           <View style={styles.row}>
             {row1.map((item, index) => (
-              <View style={styles.gridItemWrapper}>
-                <Text style={styles.gridItem} key={index}>
-                  {item}
-                </Text>
-              </View>
+              <TouchableOpacity
+                style={styles.gridItemWrapper}
+                onPress={() => selectItem(item)}
+                key={index}
+              >
+                <Text style={styles.gridItem}>{item}</Text>
+              </TouchableOpacity>
             ))}
           </View>
           <View style={styles.row}>
             {row2.map((item, index) => (
-              <View style={styles.gridItemWrapper}>
-                <Text style={styles.gridItem} key={index}>
-                  {item}
-                </Text>
-              </View>
+              <TouchableOpacity
+                style={styles.gridItemWrapper}
+                onPress={() => selectItem(item)}
+                key={index}
+              >
+                <Text style={styles.gridItem}>{item}</Text>
+              </TouchableOpacity>
             ))}
           </View>
           <View style={styles.row}>
             {row3.map((item, index) => (
-              <View style={styles.gridItemWrapper}>
-                <Text style={styles.gridItem} key={index}>
-                  {item}
-                </Text>
-              </View>
+              <TouchableOpacity
+                style={styles.gridItemWrapper}
+                onPress={() => selectItem(item)}
+                key={index}
+              >
+                <Text style={styles.gridItem}>{item}</Text>
+              </TouchableOpacity>
             ))}
           </View>
           <View style={styles.row}>
             {row4.map((item, index) => (
-              <View style={styles.gridItemWrapper}>
-                <Text style={styles.gridItem} key={index}>
-                  {item}
-                </Text>
-              </View>
+              <TouchableOpacity
+                style={styles.gridItemWrapper}
+                onPress={() => selectItem(item)}
+                key={index}
+              >
+                <Text style={styles.gridItem}>{item}</Text>
+              </TouchableOpacity>
             ))}
           </View>
         </View>
