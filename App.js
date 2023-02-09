@@ -67,6 +67,42 @@ export default function App() {
   return (
     <SafeAreaView style={{ height: "100%" }}>
       <StatusBar style="auto" />
+      {selectedItem && (
+        <TouchableOpacity style={styles.on} onPress={stopCounter}>
+          <View
+            style={{
+              height: "100%",
+              alignContent: "center",
+              justifyContent: "center",
+            }}
+          >
+            <View>
+              <Text style={styles.selectedItem}>{selectedItem}</Text>
+            </View>
+            {counter !== null && (
+              <View style={styles.counter}>
+                <Text style={styles.counterDigit}>
+                  {Math.floor((counter % (60 * 60 * 24)) / (60 * 60))
+                    .toString()
+                    .padStart(2, "0")}
+                </Text>
+                <Text style={styles.blinker}>:</Text>
+                <Text style={styles.counterDigit}>
+                  {Math.floor((counter % (60 * 60)) / 60)
+                    .toString()
+                    .padStart(2, "0")}
+                </Text>
+                <Text style={styles.blinker}>:</Text>
+                <Text style={styles.counterDigit}>
+                  {Math.floor(counter % 60)
+                    .toString()
+                    .padStart(2, "0")}
+                </Text>
+              </View>
+            )}
+          </View>
+        </TouchableOpacity>
+      )}
       {!selectedItem && (
         <View style={styles.container}>
           <View style={styles.row}>
@@ -142,5 +178,27 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: "16",
     padding: 5,
+  },
+  on: {
+    backgroundColor: "green",
+    margin: 30,
+  },
+  selectedItem: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 32,
+    padding: 20,
+  },
+  counter: {
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  counterDigit: {
+    color: "white",
+    fontSize: 28,
+  },
+  blinker: {
+    color: "white",
+    fontSize: 28,
   },
 });
