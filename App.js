@@ -7,7 +7,6 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from "react-native";
-import cn from "classnames";
 
 export default function App() {
   const [selectedItem, setSelectedItem] = useState(null);
