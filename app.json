@@ -2,8 +2,8 @@
   "expo": {
     "name": "mtrack",
     "slug": "mtrack",
-    "version": "1.0.6",
-    "icon": "./assets/truckIcon.png",
+    "version": "1.0.7",
+    "icon": "./assets/icon2.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash4.png",
