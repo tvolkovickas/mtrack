@@ -2,8 +2,8 @@
   "expo": {
     "name": "mtrack",
     "slug": "mtrack",
-    "version": "1.0.8",
-    "icon": "./assets/icon2.png",
+    "version": "1.0.9",
+    "icon": "./assets/icon2-adjusted.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash4.png",
@@ -19,7 +19,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/icon2.png",
+        "foregroundImage": "./assets/adaptive-truck.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.tvolkovickas.mtrack"
