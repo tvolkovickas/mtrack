@@ -15,6 +15,7 @@ SplashScreen.preventAutoHideAsync();
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [destination, setDestination] = useState(null);
   const [counter, setCounter] = useState(null);
   const row1 = [
     "3 mm",
@@ -53,15 +54,22 @@ export default function App() {
     "",
   ];
 
+  const destinationRow1 = ["STOCK", "BENNY", "WASHPLANT"];
+  const destinationRow2 = ["ST HEAVENS", "EXTENSION", "OTHER"];
+
   const stopCounter = () => {
     setCounter(null);
     setSelectedItem(null);
+    setDestination(null);
+  };
+  const startCounter = (destination) => {
+    setDestination(destination);
+    setCounter(0);
   };
   const selectItem = (item) => {
     if (item === "") {
       return;
     }
-    setCounter(0);
     setSelectedItem(item);
   };
 
@@ -101,46 +109,110 @@ export default function App() {
     return null;
   }
   return (
-    <SafeAreaView style={{ height: "100%" }} onLayout={onLayoutRootView}>
+    <SafeAreaView style={styles.container} onLayout={onLayoutRootView}>
       <StatusBar style="auto" />
       {selectedItem && (
-        <TouchableOpacity style={styles.on} onPress={stopCounter}>
-          <View
-            style={{
-              height: "100%",
-              alignContent: "center",
-              justifyContent: "center",
-            }}
-          >
-            <View>
-              <Text style={styles.selectedItem}>{selectedItem}</Text>
-            </View>
-            {counter !== null && (
-              <View style={styles.counter}>
-                <Text style={styles.counterDigit}>
-                  {Math.floor((counter % (60 * 60 * 24)) / (60 * 60))
-                    .toString()
-                    .padStart(2, "0")}
-                </Text>
-                <Text style={styles.blinker}>:</Text>
-                <Text style={styles.counterDigit}>
-                  {Math.floor((counter % (60 * 60)) / 60)
-                    .toString()
-                    .padStart(2, "0")}
-                </Text>
-                <Text style={styles.blinker}>:</Text>
-                <Text style={styles.counterDigit}>
-                  {Math.floor(counter % 60)
-                    .toString()
-                    .padStart(2, "0")}
-                </Text>
+        <View style={{ height: "100%", backgroundColor: "#06601D" }}>
+          {!destination && (
+            <View style={styles.fullHeight}>
+              <View>
+                <Text style={styles.selectedItem}>{selectedItem}</Text>
               </View>
-            )}
-          </View>
-        </TouchableOpacity>
+              <View style={styles.destinationRow}>
+                {destinationRow1.map((item, index) => (
+                  <View style={{ flex: 1 }} key={index}>
+                    <TouchableOpacity
+                      onPress={() => startCounter(item)}
+                      style={styles.destinationColumn}
+                    >
+                      <Text style={styles.destinationItem}>{item}</Text>
+                    </TouchableOpacity>
+                  </View>
+                ))}
+              </View>
+              <View style={styles.destinationRow}>
+                {destinationRow2.map((item, index) => (
+                  <View style={{ flex: 1 }} key={index}>
+                    <TouchableOpacity
+                      onPress={() => startCounter(item)}
+                      style={styles.destinationColumn}
+                    >
+                      <Text style={styles.destinationItem}>{item}</Text>
+                    </TouchableOpacity>
+                  </View>
+                ))}
+              </View>
+            </View>
+          )}
+          {destination && (
+            <View style={styles.fullHeight}>
+              <TouchableOpacity onPress={stopCounter}>
+                <View
+                  style={{
+                    height: "80%",
+                    flexDirection: "row",
+                    borderBottomColor: "white",
+                    borderBottomWidth: 3,
+                  }}
+                >
+                  <View
+                    style={{
+                      flex: 1,
+                      width: "50%",
+                      alignContent: "center",
+                      justifyContent: "center",
+                      borderRightColor: "white",
+                      borderRightWidth: 3,
+                    }}
+                  >
+                    <Text style={styles.selectedItem}>{selectedItem}</Text>
+                  </View>
+                  <View
+                    style={{
+                      flex: 1,
+                      width: "50%",
+                      alignContent: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Text style={styles.selectedItem}>{destination}</Text>
+                  </View>
+                </View>
+                {counter !== null && (
+                  <View
+                    style={{
+                      height: "20%",
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={styles.counterDigit}>
+                      {Math.floor((counter % (60 * 60 * 24)) / (60 * 60))
+                        .toString()
+                        .padStart(2, "0")}
+                    </Text>
+                    <Text style={styles.blinker}>:</Text>
+                    <Text style={styles.counterDigit}>
+                      {Math.floor((counter % (60 * 60)) / 60)
+                        .toString()
+                        .padStart(2, "0")}
+                    </Text>
+                    <Text style={styles.blinker}>:</Text>
+                    <Text style={styles.counterDigit}>
+                      {Math.floor(counter % 60)
+                        .toString()
+                        .padStart(2, "0")}
+                    </Text>
+                  </View>
+                )}
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
       )}
       {!selectedItem && (
-        <View style={styles.container}>
+        <View style={styles.fullHeight}>
           <View style={styles.row}>
             {row1.map((item, index) => (
               <TouchableOpacity
@@ -193,6 +265,9 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
+    margin: 5,
+  },
+  fullHeight: {
     height: "100%",
   },
   row: {
@@ -207,7 +282,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#595959",
-    margin: 5,
+    marginLeft: 5,
   },
   gridItem: {
     textAlign: "center",
@@ -215,10 +290,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     padding: 5,
     fontWeight: "bold",
-  },
-  on: {
-    backgroundColor: "#06601D",
-    margin: 30,
   },
   selectedItem: {
     color: "white",
@@ -228,6 +299,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   counter: {
+    flex: 1,
+    height: "20%",
     flexDirection: "row",
     justifyContent: "center",
   },
@@ -240,5 +313,22 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 28,
     fontWeight: "bold",
+  },
+  destinationColumn: {
+    borderColor: "black",
+    borderWidth: 1,
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 3,
+  },
+  destinationRow: {
+    flex: 1,
+    flexDirection: "row",
+    backgroundColor: "white",
+  },
+  destinationItem: {
+    fontWeight: "bold",
+    fontSize: 24,
   },
 });
